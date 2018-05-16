@@ -16,6 +16,15 @@ class RecipesController < ApplicationController
     render json: @recipe
   end
 
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    if @recipe.destroy
+      head :no_content, status: :ok
+    else
+      render json: @recipe.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def recipe_params
